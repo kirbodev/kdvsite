@@ -7,8 +7,39 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "kdv_",
-  description: "Personal website of kdv_",
+  title: {
+    template: "%s | kdv_",
+    default: "kdv_",
+  },
+  description:
+    "Software Engineer based in Dublin. Full-stack. Typescript/Node.js. Open-source.",
+  keywords: [
+    "kdv_",
+    "kdv",
+    "software",
+    "engineer",
+    "typescript",
+    "node.js",
+    "kirbodev",
+  ],
+  metadataBase: new URL("https://kdv.vercel.app"),
+  openGraph: {
+    type: "website",
+    images: {
+      url: "/header.png",
+      width: 1250,
+      height: 500,
+      alt: "kdv_",
+    },
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@kirbodev",
+    site: "@kirbodev",
+  },
+  // Deprecated but used for discord embed color
+  themeColor: "#1021B7",
 };
 
 export default function RootLayout({
