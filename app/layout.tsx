@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Provider as JotaiProvider } from "jotai";
 import "./globals.css";
@@ -38,7 +38,9 @@ export const metadata: Metadata = {
     creator: "@kirbodev",
     site: "@kirbodev",
   },
-  // Deprecated but used for discord embed color
+};
+
+export const viewport: Viewport = {
   themeColor: "#1021B7",
 };
 
