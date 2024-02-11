@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Choco";
+  src: url("/fonts/choco.ttf");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 240 8% 95%;
+    --foreground: 240 8% 5%;
+
+    --card: 240 8% 95%;
+    --card-foreground: 240 8% 5%;
+
+    --popover: 240 8% 95%;
+    --popover-foreground: 240 8% 5%;
+
+    --primary: 234 84% 39%;
+    --primary-foreground: 180 9% 98%;
+
+    --secondary: 228 11% 91%;
+    --secondary-foreground: 240 8% 5%;
+
+    --muted: 240 9% 91%;
+    --muted-foreground: 234 9% 45%;
+
+    --accent: 234 87% 62%;
+    --accent-foreground: 240 8% 5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 230 9% 87%;
+    --input: 240 9% 81%;
+    --ring: 234 36% 72%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 180 0% 0%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 3% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 3% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --secondary: 240 2% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 2% 18%;
+    --muted-foreground: 228 2% 49%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 2% 12%;
+    --input: 240 2% 18%;
+    --ring: 233 64% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    @apply overflow-x-hidden;
+  }
+}
