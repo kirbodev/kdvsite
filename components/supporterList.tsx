@@ -11,7 +11,7 @@ const supporters = [
   {
     name: "pou/jmoney",
     description: <span>A long time friend and supporter of mine.</span>,
-    image: "/jmoney.png",
+    image: "/jmoney.jpg",
   },
   {
     name: "furious",
