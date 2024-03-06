@@ -113,7 +113,7 @@ export default function Cursor() {
     !isMobile && (
       <div
         id="cursor"
-        className="pointer-events-none fixed -left-4 -top-4 z-[100] h-8 w-8 rounded-full border-2 border-white/[0.75] mix-blend-difference"
+        className="pointer-events-none fixed -left-4 -top-4 z-[99999999999] size-8 rounded-full border-2 border-white/[0.75] mix-blend-difference"
         style={{
           transform: `translate(${position.x > 0.001 ? position.x : -20}px, ${position.y > 0.001 ? position.y : -20}px) rotate(${currAngle}deg) scale(${currSize + currScale > 0.001 ? currSize + currScale : 0}, ${currSize - currScale > 0.001 ? currSize - currScale : 0})`,
         }}

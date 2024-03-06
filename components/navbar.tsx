@@ -1,7 +1,7 @@
 "use client";
 
 import { choco } from "@/styles/fonts";
-import { ThemeSwitcher } from "./themes";
+import { ThemeSwitcher } from "./themeSwitcher";
 import AnnouncementBar from "./announcement";
 
 export default function Navbar() {

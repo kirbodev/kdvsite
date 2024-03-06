@@ -1,14 +1,8 @@
 "use client";
 
-import React, { Suspense, useState } from "react";
-import Terminal, {
-  ColorMode,
-  TerminalInput,
-  TerminalOutput,
-} from "./terminal/index";
+import React, { useState } from "react";
+import Terminal, { TerminalInput, TerminalOutput } from "./terminal/index";
 import { Copyleft } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface CodeTimeResponse {
   data: {
@@ -42,12 +36,12 @@ interface Command {
     | Promise<void | string | React.ReactElement<any, string>>;
 }
 
-function TerminalController(props = {}) {
+function TerminalController({ className }: { className?: string }) {
   const [terminalLineData, setTerminalLineData] = useState([
     <TerminalOutput key="welcome-message">kdv_ [Version 2.1.1]</TerminalOutput>,
     <TerminalOutput key="welcome-message-2">
       <span>
-        <Copyleft className="inline" size="18px" /> kdv_. Some rights reserved.
+        <Copyleft className="inline" size="14px" /> kdv_. Some rights reserved.
       </span>
     </TerminalOutput>,
     <TerminalOutput key="blank" />,
@@ -198,8 +192,13 @@ function TerminalController(props = {}) {
   }
 
   return (
-    <div className="container drop-shadow-[drop-shadow(0_10px_8px_hsl(var(--accent)/0.1))_drop-shadow(0_4px_3px_hsl(var(--accent)/0.4))]">
-      <Terminal name="kdv_" onInput={handleInput} prompt="$">
+    <div className="aspect-video size-full">
+      <Terminal
+        name="kdv_"
+        onInput={handleInput}
+        prompt="$"
+        className={className}
+      >
         {terminalLineData}
       </Terminal>
     </div>

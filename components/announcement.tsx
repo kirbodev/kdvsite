@@ -1,3 +1,5 @@
+"use client";
+
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtom } from "jotai";
@@ -18,7 +20,9 @@ export default function AnnouncementBar({
   const [show, setShow] = useAtom(announcementAtom);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!mounted) return null;
 
@@ -27,14 +31,14 @@ export default function AnnouncementBar({
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {show ? (
         <motion.div
           className="origin-top overflow-hidden whitespace-nowrap bg-accent p-2 text-sm font-semibold text-foreground"
-          exit={{ transform: "translateY(-100%)", height: 0 }}
+          exit={{ transform: "translateY(-100%)", scale: 0, height: 0 }}
         >
-          <div className="align-center flex">
-            <div className="flex flex-1 items-center justify-center gap-2">
+          <div className="flex">
+            <div className="flex flex-1 items-center justify-center gap-2 text-white">
               {children}
             </div>
             <button

@@ -1,11 +1,9 @@
 import React, {
   useState,
   useEffect,
-  useRef,
   KeyboardEvent,
   ChangeEvent,
   ReactNode,
-  ReactNodeArray,
 } from "react";
 import TerminalInput from "./linetypes/TerminalInput";
 import TerminalOutput from "./linetypes/TerminalOutput";
@@ -24,21 +22,21 @@ export interface Props {
   children?: ReactNode;
   onInput?: ((input: string) => void) | null | undefined;
   startingInputValue?: string;
+  className?: string;
 }
 
 const Terminal = ({
   name,
   prompt,
-  height = "600px",
+  height = "auto",
   colorMode,
   onInput,
   children,
   startingInputValue = "",
+  className = "",
 }: Props) => {
   const [currentLineInput, setCurrentLineInput] = useState("");
   const [cursorPos, setCursorPos] = useState(0);
-
-  const scrollIntoViewRef = useRef<HTMLDivElement>(null);
 
   const updateCurrentLineInput = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentLineInput(event.target.value);
@@ -77,14 +75,6 @@ const Terminal = ({
       onInput(currentLineInput);
       setCursorPos(0);
       setCurrentLineInput("");
-      setTimeout(
-        () =>
-          scrollIntoViewRef?.current?.scrollIntoView({
-            behavior: "auto",
-            block: "nearest",
-          }),
-        500,
-      );
     } else if (
       ["ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", "Delete"].includes(
         event.key,
@@ -149,7 +139,7 @@ const Terminal = ({
     };
   }, [onInput]);
 
-  const classes = ["react-terminal-wrapper"];
+  const classes = ["react-terminal-wrapper", className];
   if (colorMode === ColorMode.Light) {
     classes.push("react-terminal-light");
   }
@@ -175,7 +165,6 @@ const Terminal = ({
             ></span>
           </div>
         )}
-        <div ref={scrollIntoViewRef}></div>
       </div>
       <input
         className="terminal-hidden-input"
