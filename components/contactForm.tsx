@@ -17,9 +17,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useTheme } from "next-themes";
 
 const formSchema = z.object({
   name: z
@@ -41,6 +42,7 @@ const formSchema = z.object({
     .max(1000, {
       message: "Message can't be more than 1000 characters",
     }),
+  recaptcha: z.string().min(1, { message: "Recaptcha is required" }),
 });
 
 export default function ContactForm(
@@ -54,6 +56,7 @@ export default function ContactForm(
       name: "",
       email: "",
       message: "",
+      recaptcha: "",
     },
   });
 
@@ -90,6 +93,8 @@ export default function ContactForm(
     });
   }
 
+  const { theme } = useTheme();
+
   return (
     <div suppressHydrationWarning>
       <Form {...form}>
@@ -98,7 +103,7 @@ export default function ContactForm(
           {...props}
           className={`space-y-4 ${props.className}`}
         >
-          <div className="flex justify-between space-x-4">
+          <div className="justify-between space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
             <FormField
               control={form.control}
               name="name"
@@ -143,8 +148,29 @@ export default function ContactForm(
               </FormItem>
             )}
           />
-          {/*TODO - Add recaptcha as a form field*/}
-          <Button type="submit">
+          <FormField
+            control={form.control}
+            name="recaptcha"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                    onChange={(value) =>
+                      form.setValue("recaptcha", value || "")
+                    }
+                    className="mx-auto h-[76px] w-[302px] overflow-hidden rounded-[3px] sm:mx-0"
+                    theme={theme === "dark" ? "dark" : "light"}
+                    key={theme}
+                    data-no-cursor
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full sm:w-auto">
             <AnimatePresence mode="wait">
               {!loading && (
                 <motion.span

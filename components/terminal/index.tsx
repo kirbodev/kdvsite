@@ -17,7 +17,6 @@ export enum ColorMode {
 export interface Props {
   name?: string;
   prompt?: string;
-  height?: string;
   colorMode?: ColorMode;
   children?: ReactNode;
   onInput?: ((input: string) => void) | null | undefined;
@@ -28,7 +27,6 @@ export interface Props {
 const Terminal = ({
   name,
   prompt,
-  height = "auto",
   colorMode,
   onInput,
   children,
@@ -150,7 +148,7 @@ const Terminal = ({
         <div className="yellow-btn" />
         <div className="green-btn" />
       </div>
-      <div className="react-terminal" style={{ height }}>
+      <div className="react-terminal">
         {children}
         {typeof onInput === "function" && (
           <div
@@ -172,6 +170,7 @@ const Terminal = ({
         value={currentLineInput}
         onChange={updateCurrentLineInput}
         onKeyDown={handleInputKeyDown}
+        autoCapitalize="off"
       />
     </div>
   );

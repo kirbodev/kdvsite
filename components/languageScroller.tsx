@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import AstroIcon from "./icons/astro";
 import BootstrapIcon from "./icons/bootstrap";
 import DjsIcon from "./icons/djs";
@@ -13,269 +14,279 @@ import TSIcon from "./icons/ts";
 import VercelIcon from "./icons/vercel";
 import { Badge } from "./ui/badge";
 
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { Progress } from "./ui/progress";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "./ui/tooltip";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+const items = [
+  <TooltipProvider key="astro">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <AstroIcon className="size-16 p-1 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Astro</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="bootstrap">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <BootstrapIcon className="size-16 p-1 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Bootstrap</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="djs">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <DjsIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Discord.js</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="mongo">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <MongoIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">MongoDB</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="netlify">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <NetlifyIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Netlify</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="nextjs">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <NextIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Next.js</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="react">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <ReactIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">React</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="redis">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <RedisIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Redis</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="tailwind">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <TailwindIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">TailwindCSS</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="ts">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <TSIcon className="size-16 p-1 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">TypeScript</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="vercel">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <VercelIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Vercel</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="astro2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <AstroIcon className="size-16 p-1 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Astro</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="bootstrap2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <BootstrapIcon className="size-16 p-1 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Bootstrap</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="djs2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <DjsIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Discord.js</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="mongo2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <MongoIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">MongoDB</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="netlify2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <NetlifyIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Netlify</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="nextjs2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <NextIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Next.js</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="react2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <ReactIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">React</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="redis2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <RedisIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Redis</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="tailwind2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <TailwindIcon className="size-16 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">TailwindCSS</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="ts2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <TSIcon className="size-16 p-1 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">TypeScript</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+  <TooltipProvider key="vercel2">
+    <Tooltip delayDuration={250}>
+      <TooltipTrigger asChild>
+        <a>
+          <VercelIcon className="size-16 p-2 drop-shadow-lg" />
+        </a>
+      </TooltipTrigger>
+      <TooltipContent side="top">Vercel</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>,
+];
 
 export default function LanguageScroller() {
+  const animateRef = React.createRef<HTMLDivElement>();
+
+  const tl = gsap.timeline();
+
+  useGSAP((gsap) => {
+    tl.to(animateRef.current, {
+      x: "-50%",
+      duration: 30,
+      ease: "none",
+      repeat: -1,
+    });
+  });
+
+  const onHoverStart = () => {
+    tl.timeScale(0.5);
+  };
+
+  const onHoverEnd = () => {
+    tl.timeScale(1);
+  };
+
   return (
-    <>
-      <div className="mx-6 flex h-16 w-full justify-center gap-6">
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <AstroIcon className="size-16 p-1 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-2">
-              <span className="font-bold">Astro</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Framework
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Astro is a new kind of static site builder that delivers
-                lightning fast performance, and modern developer experiences.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={90} className="mt-1" />
-              </div>
+    <div className="flex size-full justify-center">
+      <div className="overflow-x-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+        <div
+          className="my-12 flex w-max flex-nowrap"
+          ref={animateRef}
+          onMouseEnter={onHoverStart}
+          onMouseLeave={onHoverEnd}
+          onTouchStart={onHoverStart}
+          onTouchEnd={onHoverEnd}
+        >
+          {items.map((item, index) => (
+            <div key={`infinite-${index}`} className="z-50 mx-4 sm:mx-8">
+              {item}
             </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <BootstrapIcon className="size-16 p-1 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-2">
-              <span className="font-bold">Bootstrap</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Framework
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Bootstrap is a free and open-source CSS framework directed at
-                responsive, mobile-first front-end web development.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={60} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <DjsIcon className="size-16 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">Discord.js</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Library
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Discord.js is a library used for creating Discord bots.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={90} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <MongoIcon className="size-16 p-2 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">MongoDB/Mongoose</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                DB
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                MongoDB is a general purpose, document-based database built for
-                modern developers and for the cloud era.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={70} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <NetlifyIcon className="size-16 p-2 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">Netlify</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Platform
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Netlify is a platform that builds, deploys, and hosts your
-                front-end applications or sites.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={75} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <NextIcon className="size-16 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">NextJS</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Framework
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Next.js is a React framework for production.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={20} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <ReactIcon className="size-16 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">React</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Framework
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                React is a JavaScript library for building user interfaces.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={20} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <RedisIcon className="size-16 p-2 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">Redis</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                DB
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Redis is an open source, in-memory data structure store, used as
-                a database, cache, and message broker.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={50} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <TailwindIcon className="size-16 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">TailwindCSS</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Framework
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Tailwind CSS is a utility-first CSS framework for rapidly
-                building custom designs.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={85} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <TSIcon className="size-16 p-1 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">TypeScript</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Language
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                TypeScript is a superset of JavaScript with types that compiles
-                to plain JavaScript.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={80} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <a>
-              <VercelIcon className="size-16 p-2 drop-shadow-lg" />
-            </a>
-          </HoverCardTrigger>
-          <HoverCardContent side="top">
-            <div className="flex flex-col space-y-1">
-              <span className="font-bold">Vercel</span>
-              <Badge variant="secondary" className="w-fit text-[10px]">
-                Platform
-              </Badge>
-              <p className="text-xs text-secondary-foreground/[0.8]">
-                Vercel is a cloud platform for static sites and Serverless
-                Functions.
-              </p>
-              <div>
-                <span className="text-sm font-semibold">Experience</span>
-                <Progress value={50} className="mt-1" />
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
+          ))}
+        </div>
       </div>
-      <div className="mt-4 flex justify-center">
-        <span className="text-muted-foreground">
-          P.S: Hover on one of the logos to find out more!
-        </span>
-      </div>
-    </>
+    </div>
   );
 }

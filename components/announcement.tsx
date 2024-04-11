@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export const announcementAtom = atomWithStorage(
   "showAnnouncement",
   true,
-  createJSONStorage(() => sessionStorage),
+  createJSONStorage(() => localStorage),
 );
 
 export default function AnnouncementBar({
@@ -34,7 +34,7 @@ export default function AnnouncementBar({
     <AnimatePresence mode="wait">
       {show ? (
         <motion.div
-          className="origin-top overflow-hidden whitespace-nowrap bg-accent p-2 text-sm font-semibold text-foreground"
+          className="origin-top overflow-hidden whitespace-nowrap bg-gradient-to-br from-primary to-accent p-2 text-sm font-semibold text-foreground"
           exit={{ transform: "translateY(-100%)", scale: 0, height: 0 }}
         >
           <div className="flex">
@@ -42,11 +42,11 @@ export default function AnnouncementBar({
               {children}
             </div>
             <button
-              className="flex items-center justify-end"
+              className="flex items-center justify-end rounded-sm ring-offset-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
               aria-label="Close"
               onClick={handleClose}
             >
-              <X size={16} />
+              <X size={16} className="text-white" />
             </button>
           </div>
         </motion.div>

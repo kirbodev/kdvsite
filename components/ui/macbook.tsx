@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { MotionValue, motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
 import { cn } from "@/lib/utils";
 import {
+  IconBrandWindows,
   IconBrightnessDown,
   IconBrightnessUp,
   IconCaretRightFilled,
   IconCaretUpFilled,
+  IconCornerDownLeft,
   IconMicrophone,
   IconMoon,
   IconPlayerSkipForward,
@@ -16,80 +17,19 @@ import {
   IconVolume,
   IconVolume2,
   IconVolume3,
-  IconCornerDownLeft,
-  IconBrandWindows,
 } from "@tabler/icons-react";
 import { IconSearch } from "@tabler/icons-react";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
-import { choco } from "@/styles/fonts";
-import Terminal from "../terminal";
+import Image from "next/image";
 
-export const MacbookScroll = ({
-  showGradient,
-  title,
-  badge,
-}: {
-  showGradient?: boolean;
-  title?: string | React.ReactNode;
-  badge?: React.ReactNode;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 30%", "end 15%"],
-  });
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (window && window.innerWidth < 768) {
-      setIsMobile(true);
-    }
-  }, []);
-
-  const scaleX = useTransform(
-    scrollYProgress,
-    [0, 0.3],
-    [1.2, isMobile ? 1 : 1.5],
-  );
-  const scaleY = useTransform(
-    scrollYProgress,
-    [0, 0.3],
-    [0.6, isMobile ? 1 : 1.5],
-  );
-  const translate = useTransform(scrollYProgress, [0, 1], [0, 1750]);
-  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
-  const textTransform = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-
+export const MacbookScroll = ({ src }: { src?: string }) => {
   return (
-    <div
-      ref={ref}
-      className="flex min-h-[200vh] shrink-0 scale-[0.35] flex-col items-center justify-start bg-[linear-gradient(to_bottom,hsl(var(--background)),#e5e7eb44),radial-gradient(at_center_bottom,hsl(var(--background)),#e5e7eb)] py-0 [perspective:800px] dark:bg-[linear-gradient(to_bottom,hsl(var(--background)),#05050544),radial-gradient(at_center_bottom,hsl(var(--background)),#050505)] sm:scale-50 md:scale-100 md:pb-80"
-    >
-      <motion.h2
-        style={{
-          translateY: textTransform,
-          opacity: textOpacity,
-        }}
-        className="mb-20 text-center text-3xl font-bold text-neutral-800 dark:text-white"
-      >
-        {title || (
-          <span>
-            This Macbook is built with Tailwindcss. <br /> No kidding.
-          </span>
-        )}
-      </motion.h2>
+    <div className="flex flex-col items-center justify-start py-0 [perspective:800px]">
       {/* Lid */}
-      <Lid
-        scaleX={scaleX}
-        scaleY={scaleY}
-        rotate={rotate}
-        translate={translate}
-      />
+      <Lid src={src} />
       {/* Base area */}
-      <div className="relative -z-10 h-[26rem] w-[682px] overflow-hidden rounded-2xl bg-gray-200 drop-shadow-[0_0px_8px_rgb(0_0_0/0.25)] dark:bg-[#272729]">
+      <div className="relative -z-10 aspect-video h-full overflow-hidden rounded-2xl bg-gray-200 dark:bg-[#272729]">
         {/* above keyboard bar */}
         <div className="relative h-10 w-full">
           <div className="absolute inset-x-0 mx-auto h-4 w-[80%] bg-[#050505]" />
@@ -98,7 +38,7 @@ export const MacbookScroll = ({
           <div className="mx-auto h-full w-[10%]  overflow-hidden">
             <SpeakerGrid />
           </div>
-          <div className="mx-auto h-full w-[60%]">
+          <div className="mx-auto h-full w-[80%]">
             <Keypad />
           </div>
           <div className="mx-auto h-full w-[10%]  overflow-hidden">
@@ -107,65 +47,54 @@ export const MacbookScroll = ({
         </div>
         <Trackpad />
         <div className="absolute inset-x-0 bottom-0 mx-auto h-2 w-20 rounded-t-3xl bg-gradient-to-t from-[#272729] to-[#050505]" />
-        {showGradient && (
-          <div className="absolute inset-x-0 bottom-0 z-50 h-40 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-black dark:via-black"></div>
-        )}
-        {badge && <div className="absolute bottom-4 left-4">{badge}</div>}
       </div>
     </div>
   );
 };
 
 export const Lid = ({
-  scaleX,
-  scaleY,
-  rotate,
-  translate,
+  src,
+  className,
+  imageClassName,
+  children,
 }: {
-  scaleX: MotionValue<number>;
-  scaleY: MotionValue<number>;
-  rotate: MotionValue<number>;
-  translate: MotionValue<number>;
+  src?: string;
+  className?: string;
+  imageClassName?: string;
+  children?: React.ReactNode;
 }) => {
   return (
-    <div className="relative [perspective:800px]">
+    <div className={`relative [perspective:800px] ${className || ""}`}>
+      <div className="relative aspect-video size-full rounded-2xl p-2" />
       <div
-        style={{
-          transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
-          transformOrigin: "bottom",
-          transformStyle: "preserve-3d",
-        }}
-        className="relative h-[12rem] w-[682px] rounded-2xl p-2 drop-shadow-[0_0px_8px_rgb(0_0_0/0.5)]"
+        className={cn(
+          "absolute inset-0 aspect-video size-full rounded-2xl p-2",
+          imageClassName,
+        )}
       >
-        <div
-          style={{
-            boxShadow: "0px 2px 0px 2px var(--neutral-900) inset",
-          }}
-          className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
-        >
-          <span className="text-white">
-            <span className={`${choco.className}`}>
-              kdv<span className="text-primary">_</span>
-            </span>
-          </span>
-        </div>
+        {src ? (
+          <Image
+            src={src as string}
+            alt=""
+            fill
+            className="absolute inset-0 size-full rounded-lg object-cover object-left-top"
+            style={{
+              transform: "rotateX(-10deg) translateZ(0px)",
+              transformOrigin: "center bottom",
+            }}
+          />
+        ) : (
+          <div
+            className="absolute inset-0 size-full rounded-lg object-cover object-left-top"
+            style={{
+              transform: "rotateX(-10deg) translateZ(0px)",
+              transformOrigin: "center bottom",
+            }}
+          >
+            {children}
+          </div>
+        )}
       </div>
-      <motion.div
-        style={{
-          scaleX: scaleX,
-          scaleY: scaleY,
-          rotateX: rotate,
-          translateY: translate,
-          transformStyle: "preserve-3d",
-          transformOrigin: "top",
-        }}
-        className="absolute inset-0 h-96 rounded-2xl p-2"
-      >
-        <div className="absolute inset-0 rounded-lg" />
-        <div className="absolute inset-0 size-full">
-          <Terminal className="px-6 pt-12 [--size:12px] [font-size:12px]" />
-        </div>
-      </motion.div>
     </div>
   );
 };
@@ -173,7 +102,7 @@ export const Lid = ({
 export const Trackpad = () => {
   return (
     <div
-      className="mx-auto mb-1 mt-8 h-32 w-[40%] rounded-xl"
+      className="mx-auto mb-1 mt-8 aspect-video h-full rounded-xl"
       style={{
         boxShadow: "0px 0px 1px 1px #00000020 inset",
       }}
@@ -590,39 +519,5 @@ export const SpeakerGrid = () => {
         backgroundSize: "3px 3px",
       }}
     ></div>
-  );
-};
-
-export const OptionKey = ({ className }: { className: string }) => {
-  return (
-    <svg
-      fill="none"
-      version="1.1"
-      id="icon"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      className={className}
-    >
-      <rect
-        stroke="currentColor"
-        strokeWidth={2}
-        x="18"
-        y="5"
-        width="10"
-        height="2"
-      />
-      <polygon
-        stroke="currentColor"
-        strokeWidth={2}
-        points="10.6,5 4,5 4,7 9.4,7 18.4,27 28,27 28,25 19.6,25 "
-      />
-      <rect
-        id="_Transparent_Rectangle_"
-        className="st0"
-        width="32"
-        height="32"
-        stroke="none"
-      />
-    </svg>
   );
 };

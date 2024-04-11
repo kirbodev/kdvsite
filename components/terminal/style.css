@@ -22,18 +22,23 @@
   transition-property: color, background-color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-  /* transform: rotateX(25deg);
-  animation: perspective 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) 0.5s forwards; */
+}
+
+@media (max-width: 767px) {
+  .react-terminal-wrapper {
+    padding: 45px 25px 25px;
+  }
 }
 
 .react-terminal {
   overflow: auto;
-  display: flex;
-  flex-direction: column;
+  height: 100% !important;
+  position: relative;
 }
 
 .react-terminal::-webkit-scrollbar {
   height: 7px;
+  width: 7px;
 }
 
 .react-terminal::-webkit-scrollbar-thumb {
@@ -96,7 +101,9 @@
 
 .react-terminal-line {
   white-space: pre;
-  backface-visibility: hidden;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -153,21 +160,5 @@
 
 .terminal-hidden-input {
   position: fixed;
-  left: -1000px;
-}
-
-/* Keyframes */
-
-@keyframes perspective {
-  0% {
-    transform: rotateX(25deg);
-    scale: 1;
-  }
-  50% {
-    transform: rotateX(25deg);
-    scale: 0.95;
-  }
-  100% {
-    transform: rotateX(0deg);
-  }
+  left: -10000px;
 }

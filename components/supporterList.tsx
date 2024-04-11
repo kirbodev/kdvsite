@@ -11,11 +11,13 @@ const supporters = [
   {
     name: "pou/jmoney",
     description: <span>A long time friend and supporter of mine.</span>,
+    role: "Friend and Donator",
     image: "/jmoney.jpg",
   },
   {
     name: "furious",
     description: <span>Professional frenchman and a good friend of mine.</span>,
+    role: "Friend and Donator",
     image: "/furious.png",
   },
   {
@@ -25,6 +27,7 @@ const supporters = [
         Developer, owner of Crimson Rose Studios. Helped me with pomegranate!
       </span>
     ),
+    role: "Developer",
     image: "/dunkelrot.png",
   },
   {
@@ -32,11 +35,12 @@ const supporters = [
     description: (
       <span>Thank you for supporting me by visiting this website!</span>
     ),
+    role: "Supporter",
     image: "https://picsum.photos/1920/1080",
   },
 ];
 export default function SupporterList() {
-  const [activeSupporter, setActiveSupporter] = useState(supporters[0]);
+  const [activeSupporter, setActiveSupporter] = useState(0);
 
   return (
     <div className="container flex flex-col justify-center rounded-3xl bg-foreground p-6 text-background transition-colors">
@@ -72,59 +76,67 @@ export default function SupporterList() {
           to let me know!
         </AlertDescription>
       </Alert>
-      <div className="mt-6 flex w-full gap-8">
+      <div className="mt-6 w-full gap-8 md:flex">
         <div className="min-h-96 max-w-80 flex-1 rounded-3xl bg-background p-6 text-foreground">
           <AnimatePresence mode="popLayout">
             <motion.div
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              key={activeSupporter.name}
+              key={supporters[activeSupporter].name}
             >
               <Image
-                src={activeSupporter.image}
+                src={supporters[activeSupporter].image}
                 width={1920}
                 height={1080}
                 alt=""
                 className="aspect-video rounded-2xl object-cover"
               />
               <h1 className="mb-1 mt-2 text-3xl font-semibold">
-                {activeSupporter.name}
+                {supporters[activeSupporter].name}
               </h1>
-              {activeSupporter.description}
+              {supporters[activeSupporter].description}
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="flex w-full flex-1 flex-col justify-center gap-2">
-          <div
-            className={`flex items-center justify-between rounded-lg p-2 transition-colors ${activeSupporter === supporters[0] ? "bg-gray-900 dark:bg-gray-200" : "bg-none"}`}
-            onMouseOver={() => setActiveSupporter(supporters[0])}
-          >
-            <span className="text-xl font-semibold">pou/jmoney</span>
-            <span className="text-muted-foreground">Friend and Donator</span>
-          </div>
-          <div
-            className={`flex items-center justify-between rounded-lg p-2 transition-colors ${activeSupporter === supporters[1] ? "bg-gray-900 dark:bg-gray-200" : "bg-none"}`}
-            onMouseOver={() => setActiveSupporter(supporters[1])}
-          >
-            <span className="text-xl font-semibold">furious</span>
-            <span className="text-muted-foreground">Friend and Donator</span>
-          </div>
-          <div
-            className={`flex items-center justify-between rounded-lg p-2 transition-colors ${activeSupporter === supporters[2] ? "bg-gray-900 dark:bg-gray-200" : "bg-none"}`}
-            onMouseOver={() => setActiveSupporter(supporters[2])}
-          >
-            <span className="text-xl font-semibold">Dunkelrot</span>
-            <span className="text-muted-foreground">Developer</span>
-          </div>
-          <div
-            className={`flex items-center justify-between rounded-lg p-2 transition-colors ${activeSupporter === supporters[3] ? "bg-gray-900 dark:bg-gray-200" : "bg-none"}`}
-            onMouseOver={() => setActiveSupporter(supporters[3])}
-          >
-            <span className="text-xl font-semibold">You</span>
-            <span className="text-muted-foreground">Supporter</span>
-          </div>
+        <div className="mt-6 flex w-full flex-1 flex-col justify-center gap-2 md:mt-0">
+          {supporters.map((supporter, index) => (
+            <SupporterItem
+              key={supporter.name}
+              name={supporter.name}
+              role={supporter.role}
+              index={index}
+              activeSupporter={activeSupporter}
+              setIndex={(index) => setActiveSupporter(index)}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
+const SupporterItem = ({
+  name,
+  role,
+  index,
+  activeSupporter,
+  setIndex,
+}: {
+  name: string;
+  role: string;
+  index: number;
+  activeSupporter: number;
+  setIndex: (index: number) => void;
+}) => {
+  return (
+    <div
+      className={`flex items-center justify-between rounded-lg p-2 ring-offset-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${activeSupporter === index ? "bg-gray-900 dark:bg-gray-200" : "bg-none"}`}
+      onMouseOver={() => setIndex(index)}
+      onFocus={() => setIndex(index)}
+      tabIndex={0}
+    >
+      <span className="text-xl font-semibold">{name}</span>
+      <span className="text-muted-foreground">{role}</span>
+    </div>
+  );
+};

@@ -8,6 +8,7 @@ const formSchema = z.object({
   name: z.string().min(3).max(20),
   email: z.string().email(),
   message: z.string().min(10).max(1000),
+  recaptcha: z.string().min(1),
 });
 
 const mailgun = new Mailgun(formData);
@@ -50,7 +51,39 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { name, email, message } = form.data;
+  const { name, email, message, recaptcha } = form.data;
+
+  // verify recaptcha
+  const secret = process.env.RECAPTCHA_SECRET_KEY as string;
+  const res = await fetch(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`,
+    {
+      method: "POST",
+    },
+  )
+    .then((res) => res.json())
+    .catch(() => {
+      return NextResponse.json(
+        {
+          error: "An error occurred verifying recaptcha",
+        },
+        {
+          status: 500,
+        },
+      );
+    });
+
+  if (!res.success) {
+    return NextResponse.json(
+      {
+        error: "Recaptcha verification failed",
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
   try {
     await mg.messages.create(process.env.MAILGUN_DOMAIN as string, {
       from: email,
