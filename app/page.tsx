@@ -121,10 +121,10 @@ export default function Home() {
           transform: "rotate(180deg)",
           opacity: 0.1,
         }}
-        className="after:absolute after:inset-[0px_0px_50%] after:overflow-hidden after:opacity-25 after:[filter:url('#grainFilter')] after:[mask-image:radial-gradient(300px_50%_at_50%_100%,black,transparent)]"
+        className="after:absolute after:inset-[0px_0px_50%] after:overflow-hidden after:opacity-25 after:[filter:url('#grainFilter')] after:[mask-image:radial-gradient(300px_50%_at_50%_100%,black,transparent)] sm:hidden"
         id="projects-light"
       />
-      <section className="container mt-[400px] flex flex-col items-center px-4 sm:px-16 xl:px-8">
+      <section className="container mt-24 flex flex-col items-center px-4 sm:mt-[400px] sm:px-16 xl:px-8">
         <h2
           className="-mb-10 scroll-mt-[50vh] text-7xl font-bold sm:text-8xl md:text-9xl"
           id="projects"
