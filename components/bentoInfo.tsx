@@ -127,7 +127,7 @@ const SkeletonTwo = () => {
       <div className="flex size-full items-center justify-center">
         <div className="flex size-full items-center justify-center">
           <div className="mt-6 rounded-2xl border border-neutral-100 bg-white p-2 dark:border-white/[0.2] dark:bg-black">
-            <IconDevices className="size-8 text-neutral-500 transition-colors duration-200 group-hover/server:text-neutral-300 group-focus-visible/server:text-neutral-300" />
+            <IconDevices className="size-8 text-neutral-500 transition-colors duration-200 group-hover/server:text-neutral-700 group-focus-visible/server:text-neutral-700 group-hover/server:dark:text-neutral-300 group-focus-visible/server:dark:text-neutral-300" />
           </div>
           <div className="relative h-[26px] w-1/2">
             <motion.div
@@ -156,7 +156,7 @@ const SkeletonTwo = () => {
             </div>
           </div>
           <div className="mb-6 rounded-2xl border border-neutral-100 bg-white p-2 dark:border-white/[0.2] dark:bg-black">
-            <IconServerBolt className="size-8 text-neutral-500 transition-colors duration-200 group-hover/server:text-neutral-300 group-focus-visible/server:text-neutral-300" />
+            <IconServerBolt className="size-8 text-neutral-500 transition-colors duration-200 group-hover/server:text-neutral-700 group-focus-visible/server:text-neutral-700 group-hover/server:dark:text-neutral-300 group-focus-visible/server:dark:text-neutral-300" />
           </div>
         </div>
       </div>

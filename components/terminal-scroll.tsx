@@ -37,12 +37,24 @@ export const MacbookScroll = ({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 20%", "end -20%"],
+    offset: ["start start", "end start"],
   });
+
+  const [smallScreen, setSmallScreen] = useState(false);
+
+  useEffect(() => {
+    if (window.innerHeight < 850) {
+      setSmallScreen(true);
+    }
+  }, []);
 
   const scaleX = useTransform(scrollYProgress, [0, 0.3], [1.2, 1.5]);
   const scaleY = useTransform(scrollYProgress, [0, 0.3], [0.6, 1.5]);
-  const translate = useTransform(scrollYProgress, [0, 1], [0, 2250]);
+  const translate = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, smallScreen ? 1750 : 2250],
+  );
   const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
   const textTransform = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
@@ -50,7 +62,7 @@ export const MacbookScroll = ({
   return (
     <div
       ref={ref}
-      className="flex min-h-[200vh] shrink-0 flex-col items-center justify-start bg-[linear-gradient(to_bottom,hsl(var(--background)),#e4e6ea44),radial-gradient(at_center_bottom,hsl(var(--background)),#e4e6ea)] py-0 [perspective:800px] dark:bg-[linear-gradient(to_bottom,hsl(var(--background)),#07070744),radial-gradient(at_center_bottom,hsl(var(--background)),#070707)] sm:min-h-[200vh] md:pb-80"
+      className="flex min-h-[200vh] shrink-0 flex-col items-center justify-start bg-[linear-gradient(to_bottom,hsl(var(--background)),#e4e6ea44),radial-gradient(at_center_bottom,hsl(var(--background)),#e4e6ea)] py-0 [perspective:800px] dark:bg-[linear-gradient(to_bottom,hsl(var(--background)),#090909aa),radial-gradient(at_center_bottom,hsl(var(--background)),#070707)] sm:min-h-[200vh] md:pb-80"
     >
       <motion.h2
         style={{

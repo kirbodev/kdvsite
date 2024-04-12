@@ -105,11 +105,6 @@ export default function Home() {
       </div>
       <section className="container mb-24 mt-48 px-4 sm:px-20">
         <LanguageScroller />
-        <div className="mt-4 flex justify-center">
-          <span className="text-center text-sm text-muted-foreground sm:text-base">
-            P.S: Hover on one of the logos to find out more!
-          </span>
-        </div>
       </section>
       <BentoGridInfo />
       <div
@@ -170,7 +165,7 @@ export default function Home() {
           <ContactForm className="mt-4" />
         </div>
       </section>
-      <section className="mx-6 mt-48 md:mx-32">
+      <section className="mx-2 mt-48 xs:mx-6 md:mx-32">
         <SupporterList />
       </section>
       <section className="mt-16">

@@ -136,7 +136,7 @@ const SupporterItem = ({
       tabIndex={0}
     >
       <span className="text-xl font-semibold">{name}</span>
-      <span className="text-muted-foreground">{role}</span>
+      <span className="text-right text-muted-foreground">{role}</span>
     </div>
   );
 };

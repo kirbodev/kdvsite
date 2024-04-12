@@ -262,7 +262,7 @@ export default function LanguageScroller() {
   });
 
   const onHoverStart = () => {
-    tl.timeScale(0.5);
+    tl.timeScale(0.25);
   };
 
   const onHoverEnd = () => {
