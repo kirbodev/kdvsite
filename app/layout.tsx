@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: "kdv_",
   },
   description:
-    "Software Engineer based in Dublin. Full-stack. Typescript/Node.js. Open-source.",
+    "Software Engineer based in Dublin. Full-stack. Typescript/Node.js. Open-source. Previously known as kirbodev. 🚀",
   keywords: [
     "kdv_",
     "kdv",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "node.js",
     "kirbodev",
   ],
-  metadataBase: new URL("https://kdv.vercel.app"),
+  metadataBase: new URL("https://kdv.one"),
   openGraph: {
     type: "website",
     images: {

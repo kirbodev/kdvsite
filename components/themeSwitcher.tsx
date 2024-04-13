@@ -17,45 +17,33 @@ export function ThemeSwitcher() {
   const handleClick = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
-    <Suspense
-      fallback={
-        <Button
-          variant="ghost"
-          size="sm"
-          className="hover:bg-secondary hover:text-secondary-foreground"
-        >
-          <SunIcon />
-        </Button>
-      }
+    <Button
+      variant="ghost"
+      size="sm"
+      className="transition-none [background-color:transparent!important] [color:hsl(var(--foreground))!important]"
+      onClick={handleClick}
     >
-      <Button
-        variant="ghost"
-        size="sm"
-        className="hover:bg-secondary hover:text-secondary-foreground"
-        onClick={handleClick}
-      >
-        <AnimatePresence mode="wait">
-          {theme === "dark" ? (
-            <motion.div
-              key="moon"
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <MoonIcon />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="sun"
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <SunIcon />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Button>
-    </Suspense>
+      <AnimatePresence mode="wait">
+        {theme === "dark" ? (
+          <motion.div
+            key="moon"
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+          >
+            <MoonIcon />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sun"
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+          >
+            <SunIcon />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </Button>
   );
 }

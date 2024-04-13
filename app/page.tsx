@@ -33,6 +33,7 @@ import DiscordDialog from "@/components/discordDialog";
 import Terminal from "@/components/terminal";
 import { BentoGridInfo } from "@/components/bentoInfo";
 import ProjectCarousel from "@/components/projectCarousel";
+import Footer from "@/components/footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -195,21 +196,7 @@ export default function Home() {
           </DiscordDialog>
         </div>
       </section>
-      <footer className="mt-16 flex h-24 w-full items-center justify-center border-t-[1px] border-muted/50 bg-background/60">
-        <span className="mx-8 text-center text-sm text-muted-foreground">
-          <CopyleftIcon className="inline size-4" /> {new Date().getFullYear()}{" "}
-          kdv_. MIT License. Built with Next.js. Find the source code on{" "}
-          <a
-            href="https://github.com/kirbodev/kdvsite"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="brightness-125 transition-colors duration-500 hover:text-accent"
-          >
-            GitHub
-          </a>
-          .
-        </span>
-      </footer>
+      <Footer />
       <GrainFilter />
     </>
   );

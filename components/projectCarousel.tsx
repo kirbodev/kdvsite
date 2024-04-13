@@ -122,7 +122,7 @@ export default function ProjectCarousel() {
                     asChild
                   >
                     <Link href="/archive/socute/index.html" target="_blank">
-                      Learn More
+                      View archive
                     </Link>
                   </Button>
                 </div>
