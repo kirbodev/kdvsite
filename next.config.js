@@ -21,6 +21,11 @@ const nextConfig = {
         destination: "https://donate.stripe.com/fZeg2og22aMK17q288",
         permanent: true,
       },
+      {
+        source: "/lodge",
+        destination: "https://discord.gg/SQJdbteCNF",
+        permanent: true
+      }
     ];
   },
 };
