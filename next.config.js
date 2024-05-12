@@ -24,8 +24,8 @@ const nextConfig = {
       {
         source: "/lodge",
         destination: "https://discord.gg/SQJdbteCNF",
-        permanent: true
-      }
+        permanent: true,
+      },
     ];
   },
 };

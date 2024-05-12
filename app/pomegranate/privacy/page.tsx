@@ -27,10 +27,42 @@ export default function PrivacyPage() {
             <h1 className="page-title">Our Privacy Policy</h1>
             <p className="page-description"></p>
           </header>
+          <div
+            className="recent-changes"
+            style={{
+              borderLeft: "4px solid #ffc17a",
+              borderRadius: "2px",
+              paddingLeft: "1rem",
+            }}
+          >
+            <h2>Recent Changes</h2>
+            <p>
+              We&apos;ve made some changes to our privacy policy since 10 April
+              2024.
+            </p>
+            <ul className="bulleted-list">
+              <li
+                style={{
+                  listStyleType: "disc",
+                }}
+              >
+                We&apos;ve added the &quot;Artificial Intelligence&quot;
+                section.
+              </li>
+              <li
+                style={{
+                  listStyleType: "disc",
+                }}
+              >
+                No other changes have been made to the rest of our privacy
+                policy.
+              </li>
+            </ul>
+          </div>
           <div className="page-body">
             <h1>Privacy Policy</h1>
             <p>
-              <em>Last updated: 10 April, 2024</em>
+              <em>Last updated: 12 May, 2024</em>
             </p>
             <p>
               Pomegranate, Pomelo, Dragon Fruit and the Pomegranate Devs
@@ -133,6 +165,84 @@ export default function PrivacyPage() {
               Service, identifying and communicating with you, responding to
               your requests/inquiries, and improving our services.
             </p>
+            <h2>Artificial Intelligence</h2>
+            <p>
+              We use the Gemini AI platform to power the Sentience module of our
+              services. As such, when you interact with the Sentience module by
+              pinging one of our bots, some of your information may be shared
+              and processed by the Gemini AI platform. Your information may be
+              used to train AI models, which are not affiliated with us. This
+              information includes:
+            </p>
+            <ul className="bulleted-list">
+              <li
+                style={{
+                  listStyleType: "disc",
+                }}
+              >
+                Message content
+              </li>
+            </ul>
+            <ul className="bulleted-list">
+              <li
+                style={{
+                  listStyleType: "disc",
+                }}
+              >
+                Your discord username
+              </li>
+            </ul>
+            <p>
+              Your privacy rights mentioned in the &quot;What are your privacy
+              rights?&quot; do not apply here, as we do not have access to your
+              data. If you do not wish to have your data shared with the Gemini
+              AI platform, do not interact with the Sentience module.
+              Interacting with the Sentience module will be seen as an
+              acknowledgement of your agreement to this section. You can find
+              more information about how your data is used in the{" "}
+              <a
+                href="https://ai.google.dev/gemini-api/terms#data-use-unpaid"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gemini API Terms of Service
+              </a>{" "}
+              and the{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Privacy Policy
+              </a>
+              .
+            </p>
+            <figure
+              className="block-color-gray_background callout"
+              style={{
+                whiteSpace: "pre-wrap",
+                display: "flex",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "1.5em",
+                }}
+              >
+                <span className="icon">❗</span>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                }}
+              >
+                Disclaimer: AI models are not 100% accurate and could provide
+                inaccurate or offensive responses that don&apos;t reflect our
+                views. We are not responsible for any misuse of the data
+                provided by the AI models. Do not rely on the data for any type
+                of professional advice.
+              </div>
+            </figure>
             <h2>On what legal bases do we process your information?</h2>
             <p>
               <em>
