@@ -36,7 +36,7 @@ const supporters = [
       <span>Thank you for supporting me by visiting this website!</span>
     ),
     role: "Supporter",
-    image: "https://picsum.photos/1920/1080",
+    image: null,
   },
 ];
 export default function SupporterList() {
@@ -84,13 +84,17 @@ export default function SupporterList() {
               exit={{ opacity: 0 }}
               key={supporters[activeSupporter].name}
             >
-              <Image
-                src={supporters[activeSupporter].image}
-                width={1920}
-                height={1080}
-                alt=""
-                className="aspect-video rounded-2xl object-cover"
-              />
+              {supporters[activeSupporter].image ? (
+                <Image
+                  src={supporters[activeSupporter].image}
+                  width={1920}
+                  height={1080}
+                  alt=""
+                  className="aspect-video rounded-2xl object-cover"
+                />
+              ) : (
+                <div className="aspect-video w-full rounded-2xl bg-white" />
+              )}
               <h1 className="mb-1 mt-2 text-3xl font-semibold">
                 {supporters[activeSupporter].name}
               </h1>

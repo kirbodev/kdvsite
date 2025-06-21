@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GeistMono } from "geist/font/mono";
+import { choco } from "@/styles/fonts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,7 +54,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}`}>
+      <body
+        className={`${inter.className} ${GeistMono.variable} ${choco.variable}`}
+      >
         <Providers>
           {children}
           <Analytics />

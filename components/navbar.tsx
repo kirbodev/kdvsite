@@ -1,6 +1,5 @@
 "use client";
 
-import { choco } from "@/styles/fonts";
 import { ThemeSwitcher } from "./themeSwitcher";
 import AnnouncementBar from "./announcement";
 import {
@@ -9,16 +8,18 @@ import {
 } from "@tabler/icons-react";
 import { Button } from "./ui/button";
 import DiscordDialog from "./discordDialog";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <div className="sticky top-0 z-50 w-full border-b-[1px] border-muted/50 bg-background/60 supports-[backdrop-filter]:backdrop-blur-sm">
-      <AnnouncementBar>
-        <span>kdvsite has released! 🥳</span>
-      </AnnouncementBar>
+      {/* <AnnouncementBar>
+        <span>
+        </span>
+      </AnnouncementBar> */}
       <div className="mx-auto flex h-14 max-w-[1600px] items-center px-8">
         <div className="flex items-center gap-2">
-          <span className={`${choco.className} select-none text-xl`}>
+          <span className="select-none font-choco text-xl">
             kdv
             <span className="text-primary">_</span>
           </span>

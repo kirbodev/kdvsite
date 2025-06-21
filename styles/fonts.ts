@@ -1,8 +1,6 @@
 import localFont from "next/font/local";
 
-const choco = localFont({
+export const choco = localFont({
   src: "../fonts/choco.ttf",
-  display: "swap",
+  variable: "--font-choco",
 });
-
-export { choco };

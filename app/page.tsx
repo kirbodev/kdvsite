@@ -3,8 +3,6 @@
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import Cursor from "@/components/cursor";
-import { choco } from "@/styles/fonts";
-import { CopyleftIcon } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -65,9 +63,7 @@ export default function Home() {
         id="main"
       >
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-          <h1
-            className={`${choco.className} text-9xl font-black sm:text-[10rem]`}
-          >
+          <h1 className="font-choco text-9xl font-black sm:text-[10rem]">
             kdv
             <span className="text-primary">_</span>
           </h1>
@@ -91,7 +87,7 @@ export default function Home() {
             title={
               <span>
                 Try out the{" "}
-                <span className={`${choco.className}`}>
+                <span className="font-choco">
                   kdv<span className="text-primary">_</span>
                 </span>{" "}
                 terminal!{" "}

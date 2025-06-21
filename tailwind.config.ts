@@ -56,7 +56,8 @@ const config = {
         },
       },
       fontFamily: {
-        choco: ["Choco", "Inter", "sans-serif"],
+        choco: ["var(--font-choco)", "Inter", "sans-serif"],
+        mono: ["var(--font-geist-mono)"],
       },
       borderRadius: {
         lg: "var(--radius)",

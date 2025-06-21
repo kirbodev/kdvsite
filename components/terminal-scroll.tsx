@@ -22,7 +22,6 @@ import {
 import { IconSearch } from "@tabler/icons-react";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
-import { choco } from "@/styles/fonts";
 import Terminal from "./terminal";
 
 export const MacbookScroll = ({
@@ -142,7 +141,7 @@ export const Lid = ({
           className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
         >
           <span className="text-white">
-            <span className={`${choco.className}`}>
+            <span className="font-choco">
               kdv<span className="text-primary">_</span>
             </span>
           </span>

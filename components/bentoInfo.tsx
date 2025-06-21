@@ -27,7 +27,6 @@ import LogosRedis from "./icons/redis";
 import LogosMongodbIcon from "./icons/mongo";
 import { Lid } from "./ui/macbook";
 import { Skeleton } from "./ui/skeleton";
-import { choco } from "@/styles/fonts";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
@@ -461,7 +460,7 @@ const SkeletonFour = () => {
             <div className="relative size-full bg-grid-small-white/[0.2] dark:bg-grid-small-black/[0.2]">
               <main className="flex min-h-full flex-col items-center justify-between text-background">
                 <div className="mx-auto flex flex-col items-center gap-1">
-                  <h1 className={`${choco.className} text-3xl font-black`}>
+                  <h1 className="font-choco text-3xl font-black">
                     kdv
                     <span className="text-primary">_</span>
                   </h1>
